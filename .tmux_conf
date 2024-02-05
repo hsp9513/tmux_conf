@@ -1,0 +1,165 @@
+#----------------------------------------------------------------------------------------------------------------------------
+# Default terminal
+#----------------------------------------------------------------------------------------------------------------------------
+set -g default-terminal "screen-256color"
+
+
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Default history limit
+#----------------------------------------------------------------------------------------------------------------------------
+#set -g history-limit 10000
+set -g history-limit 1000000
+
+#----------------------------------------------------------------------------------------------------------------------------
+# split panes using | and -
+#----------------------------------------------------------------------------------------------------------------------------
+unbind '"'
+unbind %
+bind \\ split-window -h
+#bind = split-window -h
+bind -  split-window -v
+
+#----------------------------------------------------------------------------------------------------------------------------
+# split panes using | and -
+#----------------------------------------------------------------------------------------------------------------------------
+unbind t
+bind t new-window
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Use m to toggle mouse mode
+#----------------------------------------------------------------------------------------------------------------------------
+unbind m
+bind m setw mouse
+set -g mouse on
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Use Alt-arrow keys without prefix key to switch panes
+# Use Alt-hjkl  keys without prefix key to switch panes
+#----------------------------------------------------------------------------------------------------------------------------
+bind -n M-Left  select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up    select-pane -U
+bind -n M-Down  select-pane -D
+#bind -n M-h     select-pane -L
+#bind -n M-l     select-pane -R
+#bind -n M-k     select-pane -U
+#bind -n M-j     select-pane -D
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Shift-Alt-arrow to switch windows
+# Shift-Alt-hl    to switch windows
+#----------------------------------------------------------------------------------------------------------------------------
+bind -n M-S-Left  previous-window
+bind -n M-S-Right next-window
+bind -n M-H       previous-window
+bind -n M-L       next-window
+#bind -n S-Left  previous-window
+#bind -n S-Right next-window
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Resize-pane
+#----------------------------------------------------------------------------------------------------------------------------
+#bind -n C-Down  resize-pane -D 1
+#bind -n C-Up    resize-pane -U 1
+#bind -n C-Left  resize-pane -L 1
+#bind -n C-Right resize-pane -R 1
+bind Down  resize-pane -D 20
+bind Up    resize-pane -U 20
+bind Left  resize-pane -L 20
+bind Right resize-pane -R 20
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Reload tmux config
+#----------------------------------------------------------------------------------------------------------------------------
+bind r source-file ~/.tmux.conf \; display "Reloaded .tmux.conf"
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Open ~/.tmux.conf in vim and reload settings on quit
+#----------------------------------------------------------------------------------------------------------------------------
+unbind e
+bind e new-window -n '~/.tmux.conf' "sh -c 'vim ~/.tmux.conf && tmux source ~/.tmux.conf'"
+
+#----------------------------------------------------------------------------------------------------------------------------
+# Rename-window
+#----------------------------------------------------------------------------------------------------------------------------
+unbind %
+bind % command-prompt -I "#W" "rename-window '%%'"
+
+
+#----------------------------------------------------------------------------------------------------------------------------
+# tmux design configuration
+#----------------------------------------------------------------------------------------------------------------------------
+## loud or quiet?
+set-option          -g visual-activity      off
+set-option          -g visual-bell          off
+set-option          -g visual-silence       off
+set-window-option   -g monitor-activity     off
+set-option          -g bell-action          none
+
+# Automatically set window title
+set-window-option   -g automatic-rename     on
+set-option          -g set-titles           on
+
+# Start window and pane indices at 1.
+set                 -g base-index           1
+set                 -g pane-base-index      0
+
+# Length of tmux status line
+set                 -g status-left-length   30
+set                 -g status-right-length  150
+set-option          -g status               "on"
+
+# Length of tmux status line
+set                 -g status-left-length   30
+set                 -g status-right-length  150
+set-option          -g status               "on"
+
+# Default statusbar color
+set-option          -g status-style                 bg="#404040",fg="#ffffff"
+
+# Default window title colors
+set-window-option   -g window-status-style          bg="#555555",fg="#cccccc"
+
+# Default window with an activity alert
+set-window-option   -g window-status-activity-style bg="#ffff00",fg="#0000ff"
+
+# Active window title colors
+set-window-option   -g window-status-current-style  bg="#aa5500",fg="#eeeeee"
+
+# Set active pane border color
+set-option          -g pane-active-border-style     bg="#333377",fg="#dd4400"
+
+# Set inactive pane border color
+set-option          -g pane-border-style fg="#333333"
+
+# Clock
+set-window-option   -g clock-mode-colour "#aa5500"
+set-option          -g status-left "\
+#[fg=colour7, bg=colour241]#{?client_prefix,#[bg=colour167],} ? #S \
+#[fg=colour241, bg=colour237]#{?client_prefix,#[fg=colour167],}??{?window_zoomed_flag, ??,}"
+set-option          -g status-right "\
+#[fg=#aa5500, bg=#404040] ??
+#[fg=#e0e030, bg=#aa5500] ??
+#[fg=#444444, bg=#e0e030] %Y-%m-%d\
+#[fg=#202020, bg=#e0e030] ??
+#[fg=#c0c0c0, bg=#202020] %T "
+#
+
+#set-environment -g -t : DISPLAY $DISPLAY
+set-option          -ga update-environment " DISPLAY"
+
+
+
+
+
+#----------------------------------------------------------------------------------------------------------------------------
+# hsp9513 configuration
+#----------------------------------------------------------------------------------------------------------------------------
+#set -g default-terminal "xterm"
+set -g default-terminal "xterm-256color"
+#set -g default-terminal "screen-256color"
+
+bind-key -n Home send Escape "OH"
+bind-key -n End  send Escape "OF"
+
